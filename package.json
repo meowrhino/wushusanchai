@@ -1,0 +1,20 @@
+{
+  "name": "wushusanchai",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "wrangler dev",
+    "deploy": "astro build && wrangler deploy",
+    "cf-typegen": "wrangler types"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.2",
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}

@@ -1,0 +1,36 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  text?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
+}
+const {
+  eyebrow = '¿Te animas?',
+  title = 'Tu momento es ahora',
+  text = 'No esperes más. Ven a entrenar con nosotros. Da el primer paso y emprende un camino de bienestar y transformación personal con un maestro premiado internacionalmente y reconocido dentro del sector.',
+  ctaHref = '/contacto',
+  ctaLabel = 'Empezar ahora',
+} = Astro.props;
+---
+
+<section class="cta section section-alt">
+  <div class="container container-narrow text-center">
+    <p class="eyebrow">{eyebrow}</p>
+    <h2>{title}</h2>
+    <p class="lead">{text}</p>
+    <a href={ctaHref} class="btn">{ctaLabel}</a>
+  </div>
+</section>
+
+<style>
+  .cta { text-align: center; }
+  .text-center { text-align: center; }
+  .lead {
+    font-size: 1.05rem;
+    color: var(--color-text);
+    max-width: 60ch;
+    margin: 0 auto 1.5rem;
+  }
+</style>

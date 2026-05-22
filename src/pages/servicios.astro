@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import CallToAction from '../components/CallToAction.astro';
+
+const services = [
+  {
+    img: '/img/kungfu.jpg',
+    title: 'Kungfu',
+    body: `Uno de los ejercicios más completos. Desarrolla tu fuerza, resistencia, elasticidad y agilidad mediante técnicas ancestrales de ataque y defensa. Mejora tu condición física mientras adquieres habilidades de combate.
+
+En nuestra escuela tienes dos estilos milenarios diferentes para que puedas trabajar diversas habilidades: la agilidad y rapidez en la emisión de golpes del Tánglángquán (Mantis religiosa) y la contundencia y explosividad del Sān Huáng Pào Chuí Quan (Puño de Cañón de los Tres Emperadores).`,
+    ctaLabel: 'Pregúntanos sobre nuestras clases de kungfu',
+  },
+  {
+    img: '/img/taichi.jpg',
+    title: 'Taichichuan',
+    body: `Series de movimientos fluidos y armónicos guiados por la respiración consciente que, si bien tienen una finalidad marcial, aportan grandes beneficios al organismo: reducen el estrés, calman la mente, fortalecen la salud y mejoran la coordinación, la memoria, el equilibrio, la resistencia y la conciencia corporal.
+
+Nuestra escuela conserva el legado de los dos linajes principales de taichichuan: familia Chen, más dinámico y explosivo, y familia Yang, más suave y fluido.`,
+    ctaLabel: 'Pregúntanos sobre nuestras clases de taichi',
+  },
+  {
+    img: '/img/qigong.jpg',
+    title: 'Qigong',
+    body: `Ejercicios que sincronizan pensamiento, movimiento y respiración para evitar tensiones y bloqueos en el cuerpo y facilitar la circulación fluida de la energía vital. Es una práctica ideal para mejorar la concentración, trabajar la relajación profunda y potenciar la salud y la longevidad.
+
+En nuestra escuela podrás practicar sistemas de qigong que, desarrollados muy sabiamente por antiguos grandes maestros, han mantenido su efectividad hasta nuestros días. Notarás sus beneficios desde las primeras clases.`,
+    ctaLabel: 'Pregúntanos sobre nuestras clases de qigong',
+  },
+];
+---
+
+<Base
+  title="Servicios"
+  description="Clases de kungfu (Tánglángquán y Sān Huáng Pào Chuí Quan), taichichuan (Chen y Yang) y qigong en Barcelona. Entrenamientos para todos los niveles."
+>
+  <section class="section page-intro">
+    <div class="container container-narrow text-center">
+      <p class="eyebrow">Artes marciales para todos</p>
+      <h1>Nuestros entrenamientos</h1>
+      <p class="lead">
+        Sea cual sea tu objetivo —la defensa personal, el bienestar físico y mental, el
+        crecimiento interior…—, en nuestras clases vas a encontrar las pautas para
+        alcanzarlo. Desde los estilos más dinámicos a las prácticas más calmadas,
+        tenemos el entrenamiento que estás buscando.
+      </p>
+    </div>
+  </section>
+
+  {services.map((s, i) => (
+    <section class={`section ${i % 2 === 1 ? 'section-alt' : ''}`}>
+      <div class={`container grid-2 ${i % 2 === 1 ? 'reverse' : ''}`}>
+        <div class="media"><img src={s.img} alt={s.title} width="800" height="600" loading="lazy" /></div>
+        <div>
+          <h2>{s.title}</h2>
+          {s.body.split('\n\n').map((p) => <p>{p}</p>)}
+          <p class="links">
+            Para saber más,
+            <a href="https://www.youtube.com/@WushuKungfutradicional" target="_blank" rel="noopener noreferrer">visita nuestro canal de tutoriales</a>
+            o
+            <a href="mailto:centresanchai@gmail.com">{s.ctaLabel.toLowerCase()}</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <CallToAction />
+</Base>
+
+<style>
+  .page-intro { padding-top: clamp(3rem, 6vw, 4.5rem); padding-bottom: 1rem; }
+  .page-intro h1 { font-size: clamp(2.25rem, 5vw, 3.25rem); }
+  .text-center { text-align: center; }
+  .lead { font-size: 1.1rem; max-width: 65ch; margin: 0 auto; }
+  .links { margin-top: 1.25rem; font-size: 0.95rem; }
+  .links a { color: var(--color-accent); }
+</style>

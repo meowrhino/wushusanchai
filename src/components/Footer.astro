@@ -1,0 +1,156 @@
+---
+const year = new Date().getFullYear();
+const mapsUrl = 'https://www.google.com/maps/place/Centro+Sanchai/@41.375576,2.157898,17z';
+const directionsUrl = 'https://www.google.com/maps/dir//Centro+Sanchai,+Carrer+de+Rocafort,+9,+Baixos+dreta,+Eixample,+08004+Barcelona,+Espa%C3%B1a';
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="col brand-col">
+      <img src="/img/logo.svg" alt="Instituto Wushu Sanchai" width="160" />
+      <p>Escuela de kungfu, taichi y qigong. Mejora tu equilibrio, fuerza y bienestar con entrenamientos adaptados a todos los niveles.</p>
+      <p class="follow">Síguenos en:</p>
+      <ul class="social">
+        <li><a href="https://www.instagram.com/institutowushusanchai/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://web.facebook.com/institutowushusanchai.espana?locale=es_LA" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        <li><a href="https://youtube.com/@wushukungfutradicional" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h4>Menú</h4>
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/servicios">Servicios</a></li>
+        <li><a href="/acerca-del-maestro">Acerca del maestro</a></li>
+        <li><a href="/contacto">Contacto</a></li>
+      </ul>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/aviso-legal">Aviso legal</a></li>
+        <li><a href="/politica-de-privacidad">Política de privacidad</a></li>
+        <li><a href="/politica-de-cookies">Política de cookies (UE)</a></li>
+        <li><a href="/accesibilidad">Accesibilidad</a></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h4>Información de contacto</h4>
+      <p>
+        <strong>Dirección:</strong><br />
+        <a href={mapsUrl} target="_blank" rel="noopener noreferrer">
+          Carrer de Rocafort, 9, Baixos dreta, Eixample, 08004 Barcelona
+        </a>
+      </p>
+      <p>
+        <strong>Horarios:</strong><br />
+        Lunes 17:45h - 21:00h<br />
+        Miércoles 16:30h - 21:00h<br />
+        Viernes 9:30h - 14:00h<br />
+        <span class="muted">Martes, jueves, sábado y domingo: cerrado</span>
+      </p>
+      <p>
+        <strong>Teléfono:</strong> <a href="tel:+34646019606">646 019 606</a><br />
+        <strong>Correo:</strong> <a href="mailto:centresanchai@gmail.com">centresanchai@gmail.com</a>
+      </p>
+      <p><a href={directionsUrl} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Cómo llegar</a></p>
+    </div>
+  </div>
+
+  <div class="container kit-row">
+    <img src="/img/kit-digital.svg" alt="Kit Digital" width="320" />
+  </div>
+
+  <div class="container copy">
+    <p>© {year} Instituto Wushu Sanchai · Carlos García García · CIF 52202446J</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #111;
+    color: #d8d8d8;
+    padding: 3.5rem 0 1.5rem;
+    margin-top: 4rem;
+  }
+  .site-footer :global(h4) {
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 1.25rem 0 0.75rem;
+  }
+  .site-footer :global(h4:first-child) { margin-top: 0; }
+  .site-footer :global(a) {
+    color: #d8d8d8;
+    text-decoration: none;
+  }
+  .site-footer :global(a:hover) { color: #fff; text-decoration: underline; }
+  .site-footer :global(p) { margin: 0 0 0.85em; font-size: 0.92rem; line-height: 1.5; }
+  .muted { color: #888; }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 800px) {
+    .footer-grid {
+      grid-template-columns: 1.4fr 1fr 1.3fr;
+      gap: 3rem;
+    }
+  }
+
+  .brand-col img {
+    background: #fff;
+    padding: 0.6rem 0.9rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+  .follow { margin-top: 0.5rem; font-weight: 600; color: #fff; }
+  .social {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.5rem;
+  }
+  .col li { margin-bottom: 0.4rem; font-size: 0.92rem; }
+
+  .kit-row {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #333;
+    text-align: center;
+  }
+  .kit-row img {
+    background: #fff;
+    padding: 0.75rem 1.25rem;
+    border-radius: 4px;
+    display: inline-block;
+    max-width: 320px;
+  }
+
+  .copy {
+    margin-top: 1.5rem;
+    text-align: center;
+    color: #888;
+    font-size: 0.8rem;
+  }
+  .btn-ghost {
+    color: #fff !important;
+    border-color: #fff !important;
+  }
+  .btn-ghost:hover {
+    background: #fff;
+    color: #111 !important;
+  }
+</style>

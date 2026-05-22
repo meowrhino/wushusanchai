@@ -1,0 +1,172 @@
+---
+import Base from '../layouts/Base.astro';
+import CallToAction from '../components/CallToAction.astro';
+
+const disciplines = [
+  {
+    img: '/img/kungfu.jpg',
+    title: 'Kungfu',
+    text: 'Fuerza, elasticidad, resistencia, reflejos… Mucho más que un simple ejercicio. Aprende técnicas milenarias de aplicaciones de defensa personal mientras ganas seguridad y autocontrol.',
+  },
+  {
+    img: '/img/taichi.jpg',
+    title: 'Taichichuan',
+    text: 'Movimientos fluidos nacidos como arte marcial que han resultado ser muy efectivos para reducir el estrés, potenciar el sistema inmunitario y desarrollar un cuerpo fuerte y flexible.',
+  },
+  {
+    img: '/img/qigong.jpg',
+    title: 'Qigong',
+    text: 'Ejercicios controlados por tu respiración y consciencia que aumentan tu energía vital y eliminan bloqueos. Practicarlos te aporta más salud, equilibrio interior y longevidad.',
+  },
+];
+
+const testimonios = [
+  { name: 'Carlos M.', text: 'Aprender Kung Fu aquí cambió mi vida. La atención personalizada me ayudó a mejorar tanto física como mentalmente.' },
+  { name: 'Lucía R.', text: 'El Tai Chi en Wushusanchai ha sido transformador. Siento una tranquilidad y equilibrio que nunca había experimentado antes.' },
+  { name: 'Miguel A.', text: 'Gracias al Qigong, me siento más enérgico y concentrado. Es una experiencia revitalizante.' },
+];
+---
+
+<Base
+  title="Inicio"
+  description="Escuela de kungfu, taichi y qigong en Barcelona. Mejora tu salud física, mental y emocional con las artes marciales tradicionales chinas de la mano del maestro Carlos García."
+>
+  <section class="hero">
+    <div class="container grid-2">
+      <div class="hero-text">
+        <p class="eyebrow">Descubre el poder del Kungfu</p>
+        <h1>Conecta con tu energía interior</h1>
+        <p>
+          Mejora tu salud física, mental y emocional a través de herramientas milenarias:
+          las artes marciales tradicionales chinas. En Instituto Wushu Sanchai ponemos en tus
+          manos toda la sabiduría de este "arte del bienestar" que ha demostrado su eficacia
+          a lo largo de la historia. Nuestro enfoque es práctico y accesible, sin importar tu
+          edad o nivel de experiencia.
+        </p>
+        <div class="cta-row">
+          <a href="/servicios" class="btn">Ver entrenamientos</a>
+          <a href="/contacto" class="btn btn-ghost">Contacto</a>
+        </div>
+      </div>
+      <div class="media">
+        <img src="/img/hero.jpg" alt="Práctica de kung fu tradicional" width="900" height="675" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2 reverse">
+      <div>
+        <p class="eyebrow">Excelencia y tradición</p>
+        <h2>Un legado de disciplina y armonía</h2>
+        <p class="subtitle">de la mano de laoshi Carlos García</p>
+        <p>
+          Una vida dedicada en exclusiva a las artes marciales tradicionales chinas y décadas
+          formando a estudiantes de todas las edades en el desarrollo de su energía interior,
+          autoconocimiento, bienestar y capacidad marcial.
+        </p>
+        <p><a href="/acerca-del-maestro" class="btn btn-ghost">Conocer al maestro</a></p>
+      </div>
+      <div class="media"><img src="/img/maestro.jpg" alt="Maestro Carlos García" width="900" height="600" loading="lazy" /></div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Nuestros entrenamientos</p>
+        <h2>Fortalece cuerpo, mente y espíritu</h2>
+        <p class="lead">
+          Nuestras clases están diseñadas para que aprendas de forma progresiva y efectiva.
+          Ya seas principiante o avanzado, te ayudamos a mejorar tu salud y alcanzar tu
+          máximo potencial de acuerdo con tus objetivos.
+        </p>
+      </header>
+
+      <div class="grid-3 cards">
+        {disciplines.map((d) => (
+          <article class="card">
+            <div class="card-media"><img src={d.img} alt={d.title} width="600" height="400" loading="lazy" /></div>
+            <h3>{d.title}</h3>
+            <p>{d.text}</p>
+          </article>
+        ))}
+      </div>
+      <p class="center"><a href="/servicios" class="btn">Ver entrenamientos</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Testimonios</p>
+        <h2>Testimonios de nuestros estudiantes</h2>
+        <p class="lead">
+          Conoce las experiencias de quienes han encontrado en el Instituto Wushusanchai un
+          hogar para su bienestar y crecimiento personal.
+        </p>
+      </header>
+
+      <div class="grid-3">
+        {testimonios.map((t) => (
+          <blockquote class="testimonial">
+            <p>"{t.text}"</p>
+            <cite>— {t.name}</cite>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>
+
+<style>
+  .hero { padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(3rem, 7vw, 5rem); }
+  .hero-text .subtitle, .subtitle {
+    font-family: var(--font-heading);
+    font-style: italic;
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin: -0.25em 0 1rem;
+  }
+  .cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+
+  .section-head { text-align: center; max-width: 60ch; margin: 0 auto 2.5rem; }
+  .lead { color: var(--color-text); font-size: 1.05rem; }
+
+  .cards .card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-media { aspect-ratio: 3/2; overflow: hidden; }
+  .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+  .card:hover .card-media img { transform: scale(1.04); }
+  .card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    margin: 1.25rem 1.25rem 0.5rem;
+  }
+  .card p { margin: 0 1.25rem 1.5rem; font-size: 0.95rem; }
+
+  .center { text-align: center; margin-top: 2.5rem; }
+
+  .testimonial {
+    background: var(--color-bg-alt);
+    border-left: 3px solid var(--color-accent);
+    padding: 1.5rem;
+    margin: 0;
+    font-style: italic;
+  }
+  .testimonial cite {
+    display: block;
+    margin-top: 0.75rem;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+</style>
