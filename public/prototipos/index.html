@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Prototipos · wushusanchai.com</title>
+<meta name="robots" content="noindex" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#f7f6f2;color:#0a0a0a;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  main{max-width:1100px;margin:0 auto;padding:6rem 1.5rem}
+  header{margin-bottom:4rem}
+  h1{font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.02em;margin:0 0 1rem;font-weight:500}
+  p.lead{color:#555;max-width:55ch;font-size:1.05rem;line-height:1.6;margin:0}
+  ul.protos{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+  ul.protos a{display:block;padding:2rem 1.75rem;background:#fff;border:1px solid #e5e3dd;border-radius:6px;text-decoration:none;color:inherit;transition:transform .2s, border-color .2s}
+  ul.protos a:hover{transform:translateY(-3px);border-color:#0a0a0a}
+  .num{font-family:ui-monospace,Menlo,monospace;font-size:.8rem;color:#888;letter-spacing:.05em}
+  .name{font-size:1.4rem;margin:.5rem 0 .35rem;font-weight:500;letter-spacing:-0.01em}
+  .desc{font-size:.9rem;color:#666;line-height:1.5;margin:0}
+  footer{margin-top:5rem;font-size:.85rem;color:#888}
+  footer a{color:inherit}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Prototipos · wushusanchai.com</h1>
+    <p class="lead">Cuatro direcciones visuales para el rediseño. Cada una con las mismas secciones (hero, disciplinas, maestro, contacto) tratadas con un lenguaje distinto. Solo mockups: si eliges uno, lo paso a Astro como toca.</p>
+  </header>
+  <ul class="protos">
+    <li><a href="./01-editorial/">
+      <div class="num">01</div>
+      <div class="name">Editorial cinematográfico</div>
+      <p class="desc">Magazine, tipografía serif elegante, foto a sangre, mucho contraste refinado.</p>
+    </a></li>
+    <li><a href="./02-zen/">
+      <div class="num">02</div>
+      <div class="name">Zen japonés moderno</div>
+      <p class="desc">Muji/Shiseido. Aire, líneas finas, paleta neutra, ritmo lento.</p>
+    </a></li>
+    <li><a href="./03-brutalist/">
+      <div class="num">03</div>
+      <div class="name">Brutalist tipográfico</div>
+      <p class="desc">Odd studio. Tipografía gigante, grid visible, contraste duro.</p>
+    </a></li>
+    <li><a href="./04-meowrhino/">
+      <div class="num">04</div>
+      <div class="name">Meowrhino + logo de fondo</div>
+      <p class="desc">Minimal, logo gigante al fondo con poca opacidad, menú abajo a la derecha.</p>
+    </a></li>
+  </ul>
+  <footer>Vuelta al sitio actual: <a href="/">wushusanchai.com</a></footer>
+</main>
+</body>
+</html>

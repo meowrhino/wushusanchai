@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>04 Meowrhino · wushusanchai</title>
+<meta name="robots" content="noindex" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap');
+  :root{
+    --bg:#f4f1ea;
+    --ink:#111;
+    --muted:#7a766d;
+    --line:#d6d0c2;
+    --red:#e02e21;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-weight:300;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+
+  /* ───────── LOGO DE FONDO GIGANTE FIJO ───────── */
+  .bg-logo{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .bg-logo img{
+    width:min(140vh,140vw);
+    height:auto;
+    opacity:.08;
+    animation:slow-rotate 240s linear infinite;
+    transform-origin:center center;
+  }
+  @keyframes slow-rotate{
+    to{transform:rotate(360deg)}
+  }
+
+  /* content always above */
+  main, header.top, nav.dock, footer{position:relative;z-index:2}
+
+  /* ───────── HEADER MINIMAL ARRIBA ───────── */
+  header.top{
+    padding:1.75rem 2rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:.78rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  header.top .brand{
+    font-family:'Fraunces',serif;
+    font-weight:400;
+    font-size:1rem;
+    letter-spacing:.05em;
+    text-transform:none;
+    color:var(--ink);
+  }
+  header.top .brand em{font-style:italic;color:var(--red)}
+
+  /* ───────── HERO ───────── */
+  .hero{
+    min-height:90vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:4rem 2rem 6rem;
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .hero .eyebrow{
+    font-size:.78rem;
+    letter-spacing:.25em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:2.5rem;
+    display:flex;
+    align-items:center;
+    gap:1rem;
+  }
+  .hero .eyebrow::before{
+    content:"";
+    width:40px;height:1px;background:var(--muted);
+  }
+  .hero h1{
+    font-family:'Fraunces',serif;
+    font-weight:300;
+    font-size:clamp(3rem,9vw,8rem);
+    line-height:.95;
+    letter-spacing:-0.03em;
+    max-width:14ch;
+    margin-bottom:3rem;
+  }
+  .hero h1 em{font-style:italic;color:var(--red)}
+  .hero p.lead{
+    font-size:1.2rem;
+    line-height:1.55;
+    max-width:48ch;
+    color:#2a2724;
+    font-weight:300;
+  }
+
+  /* ───────── SECCIONES BASE ───────── */
+  section.section{
+    padding:8rem 2rem;
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .section-head{margin-bottom:4rem}
+  .section-head .num{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:1rem;
+    color:var(--red);
+    margin-bottom:1rem;
+  }
+  .section-head h2{
+    font-family:'Fraunces',serif;
+    font-weight:300;
+    font-size:clamp(2rem,5vw,3.5rem);
+    line-height:1.1;
+    letter-spacing:-0.02em;
+    max-width:22ch;
+  }
+  .section-head h2 em{font-style:italic;color:var(--muted)}
+
+  /* MAESTRO */
+  .maestro-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+  .maestro-grid img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(.15)}
+  .maestro-grid p{font-size:1.05rem;line-height:1.75;margin-bottom:1.25rem;color:#3a3833}
+  .more{
+    display:inline-flex;
+    align-items:center;
+    gap:.6rem;
+    margin-top:1.5rem;
+    font-size:.85rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding-bottom:4px;
+    border-bottom:1px solid var(--ink);
+    transition:gap .25s, border-color .25s, color .25s;
+  }
+  .more:hover{gap:1rem;border-color:var(--red);color:var(--red)}
+
+  /* DISCIPLINAS */
+  .disc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2rem}
+  .disc-card{
+    background:rgba(255,255,255,.5);
+    backdrop-filter:blur(6px);
+    border:1px solid var(--line);
+    border-radius:2px;
+    overflow:hidden;
+    transition:transform .3s, border-color .3s;
+  }
+  .disc-card:hover{transform:translateY(-4px);border-color:var(--ink)}
+  .disc-card img{aspect-ratio:4/3;object-fit:cover;width:100%;filter:grayscale(.1)}
+  .disc-card .body{padding:1.75rem}
+  .disc-card .body .num{font-family:'Fraunces',serif;font-style:italic;font-size:.85rem;color:var(--red);margin-bottom:.5rem}
+  .disc-card h3{
+    font-family:'Fraunces',serif;
+    font-weight:400;
+    font-size:1.75rem;
+    margin-bottom:.75rem;
+    letter-spacing:-0.01em;
+  }
+  .disc-card p{font-size:.95rem;color:#4a4742;line-height:1.6}
+
+  /* QUOTE */
+  .quote{padding:8rem 2rem;text-align:center;max-width:900px;margin:0 auto}
+  .quote blockquote{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:clamp(1.5rem,3.5vw,2.5rem);
+    line-height:1.4;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  .quote cite{
+    display:block;
+    margin-top:2rem;
+    font-style:normal;
+    font-size:.78rem;
+    letter-spacing:.25em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  /* CONTACTO */
+  .contact{padding:8rem 2rem 6rem;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:end}
+  .contact h2{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.5rem,6vw,4.5rem);line-height:1;letter-spacing:-0.02em}
+  .contact h2 em{font-style:italic;color:var(--red)}
+  .contact a.big{
+    font-family:'Fraunces',serif;
+    font-size:1.5rem;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:4px;
+  }
+  .contact .info{font-size:.95rem;color:#4a4742}
+  .contact .info p{margin-bottom:.5rem}
+
+  /* FOOTER */
+  footer{padding:3rem 2rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+  footer a:hover{color:var(--ink)}
+
+  /* ───────── MENÚ DOCK ABAJO-DERECHA ───────── */
+  nav.dock{
+    position:fixed;
+    bottom:1.75rem;
+    right:1.75rem;
+    z-index:100;
+  }
+  nav.dock .pill{
+    background:var(--ink);
+    color:#fff;
+    border-radius:999px;
+    padding:.75rem 1.25rem;
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+    cursor:pointer;
+    font-size:.78rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    box-shadow:0 8px 30px rgba(0,0,0,.18);
+    transition:transform .25s, background .25s;
+  }
+  nav.dock .pill:hover{transform:translateY(-2px);background:var(--red)}
+  nav.dock .pill .dot{width:8px;height:8px;background:var(--red);border-radius:50%;transition:background .25s}
+  nav.dock .pill:hover .dot{background:#fff}
+
+  nav.dock ul{
+    position:absolute;
+    bottom:calc(100% + .75rem);
+    right:0;
+    list-style:none;
+    background:#fff;
+    border:1px solid var(--ink);
+    border-radius:14px;
+    padding:.5rem;
+    min-width:230px;
+    box-shadow:0 12px 40px rgba(0,0,0,.15);
+    transform-origin:bottom right;
+    transform:scale(.92) translateY(8px);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s, transform .2s;
+  }
+  nav.dock:hover ul,
+  nav.dock:focus-within ul,
+  nav.dock.open ul{
+    opacity:1;
+    transform:scale(1) translateY(0);
+    pointer-events:auto;
+  }
+  nav.dock li a{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:.75rem 1rem;
+    border-radius:8px;
+    font-size:.95rem;
+    color:var(--ink);
+    transition:background .2s;
+  }
+  nav.dock li a:hover{background:var(--bg)}
+  nav.dock li a .arr{font-size:1rem;color:var(--muted)}
+  nav.dock li a:hover .arr{color:var(--red)}
+  nav.dock li.sep{height:1px;background:var(--line);margin:.4rem .5rem}
+
+  /* MOBILE */
+  @media(max-width:880px){
+    header.top span.right{display:none}
+    .maestro-grid{grid-template-columns:1fr;gap:2rem}
+    .disc-grid{grid-template-columns:1fr;gap:1.5rem}
+    .contact{grid-template-columns:1fr;gap:2rem}
+    footer{flex-direction:column;gap:1rem;text-align:center}
+    nav.dock{bottom:1rem;right:1rem}
+    nav.dock ul{min-width:200px}
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGO GIGANTE AL FONDO -->
+<div class="bg-logo" aria-hidden="true">
+  <img src="/img/logo.svg" alt="" />
+</div>
+
+<header class="top">
+  <span class="brand">Wushu <em>Sanchai</em></span>
+  <span class="right">Barcelona · est. 1989</span>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Escuela de artes marciales tradicionales chinas</div>
+    <h1>Conecta con tu <em>energía</em> interior.</h1>
+    <p class="lead">Mejora tu salud física, mental y emocional a través de herramientas milenarias. Kungfu, taichi y qigong de la mano del laoshi Carlos García. Práctica, accesible y sin importar tu edad o nivel.</p>
+  </section>
+
+  <section class="section" id="maestro">
+    <div class="section-head">
+      <div class="num">— 01 / Maestro</div>
+      <h2>Un legado de disciplina y <em>armonía.</em></h2>
+    </div>
+    <div class="maestro-grid">
+      <div>
+        <p>Una vida dedicada en exclusiva a las artes marciales tradicionales chinas. Décadas formando a estudiantes de todas las edades en el desarrollo de su energía interior, autoconocimiento, bienestar y capacidad marcial.</p>
+        <p>De la mano del laoshi Carlos García, transmisor de los linajes Tánglángquán y Sān Huáng Pào Chuí Quan, así como Chen y Yang del taichichuan.</p>
+        <a class="more" href="#">Conocer al maestro <span>→</span></a>
+      </div>
+      <img src="/img/maestro.jpg" alt="Maestro Carlos García" />
+    </div>
+  </section>
+
+  <section class="section" id="disciplinas">
+    <div class="section-head">
+      <div class="num">— 02 / Disciplinas</div>
+      <h2>Tres <em>caminos</em>,<br/>una misma raíz.</h2>
+    </div>
+    <div class="disc-grid">
+      <article class="disc-card">
+        <img src="/img/kungfu.jpg" alt="" />
+        <div class="body">
+          <div class="num">i.</div>
+          <h3>Kungfu</h3>
+          <p>Tánglángquán y Sān Huáng Pào Chuí. Fuerza, elasticidad, resistencia y técnicas milenarias de defensa.</p>
+        </div>
+      </article>
+      <article class="disc-card">
+        <img src="/img/taichi.jpg" alt="" />
+        <div class="body">
+          <div class="num">ii.</div>
+          <h3>Taichichuan</h3>
+          <p>Linajes Chen y Yang. Movimiento fluido, sistema inmunitario, conciencia corporal y serenidad.</p>
+        </div>
+      </article>
+      <article class="disc-card">
+        <img src="/img/qigong.jpg" alt="" />
+        <div class="body">
+          <div class="num">iii.</div>
+          <h3>Qigong</h3>
+          <p>Respiración consciente. Energía vital, longevidad, equilibrio interior y calma profunda.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="quote">
+    <blockquote>"Aprender Kung Fu aquí cambió mi vida. La atención personalizada me ayudó a mejorar tanto física como mentalmente."</blockquote>
+    <cite>— Carlos M., estudiante</cite>
+  </section>
+
+  <section class="contact" id="contacto">
+    <h2>¿Empezamos<br/>a <em>entrenar</em>?</h2>
+    <div>
+      <p style="margin-bottom:1.5rem"><a class="big" href="mailto:centresanchai@gmail.com">centresanchai@gmail.com →</a></p>
+      <div class="info">
+        <p>Barcelona, España</p>
+        <p><a href="https://www.youtube.com/@WushuKungfutradicional">YouTube · @WushuKungfutradicional</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>© 2026 · Wushu Sanchai</span>
+  <span><a href="/">← volver al sitio actual</a></span>
+</footer>
+
+<!-- MENÚ DOCK ABAJO-DERECHA -->
+<nav class="dock" id="dock">
+  <ul>
+    <li><a href="#"><span>Inicio</span><span class="arr">↑</span></a></li>
+    <li><a href="#maestro"><span>Maestro</span><span class="arr">→</span></a></li>
+    <li><a href="#disciplinas"><span>Disciplinas</span><span class="arr">→</span></a></li>
+    <li><a href="#contacto"><span>Contacto</span><span class="arr">→</span></a></li>
+    <li class="sep"></li>
+    <li><a href="mailto:centresanchai@gmail.com"><span>Email</span><span class="arr">↗</span></a></li>
+    <li><a href="https://www.youtube.com/@WushuKungfutradicional"><span>YouTube</span><span class="arr">↗</span></a></li>
+  </ul>
+  <button class="pill" type="button" onclick="document.getElementById('dock').classList.toggle('open')">
+    <span class="dot"></span>
+    Menú
+  </button>
+</nav>
+
+</body>
+</html>

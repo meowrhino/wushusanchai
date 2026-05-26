@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>03 Brutalist · wushusanchai</title>
+<meta name="robots" content="noindex" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+  :root{
+    --bg:#fff;
+    --ink:#000;
+    --red:#ff2d1f;
+    --grey:#e6e6e6;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .mono{font-family:'JetBrains Mono',monospace;font-weight:400}
+
+  /* visible grid lines for brutalism */
+  body::before{content:"";position:fixed;inset:0;background:
+    linear-gradient(to right,transparent calc(16.66% - 1px),rgba(0,0,0,.04) calc(16.66% - 1px),rgba(0,0,0,.04) 16.66%,transparent 16.66%),
+    linear-gradient(to right,transparent calc(33.33% - 1px),rgba(0,0,0,.04) calc(33.33% - 1px),rgba(0,0,0,.04) 33.33%,transparent 33.33%),
+    linear-gradient(to right,transparent calc(50% - 1px),rgba(0,0,0,.04) calc(50% - 1px),rgba(0,0,0,.04) 50%,transparent 50%),
+    linear-gradient(to right,transparent calc(66.66% - 1px),rgba(0,0,0,.04) calc(66.66% - 1px),rgba(0,0,0,.04) 66.66%,transparent 66.66%),
+    linear-gradient(to right,transparent calc(83.33% - 1px),rgba(0,0,0,.04) calc(83.33% - 1px),rgba(0,0,0,.04) 83.33%,transparent 83.33%);
+    pointer-events:none;z-index:1}
+
+  /* fixed header */
+  nav.top{position:fixed;top:0;left:0;right:0;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:center;padding:.85rem 1.5rem;background:#000;color:#fff;z-index:50;font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid #000}
+  nav.top .brand{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.02em;font-size:.95rem}
+  nav.top a{display:block;text-align:right;padding:.2rem 0}
+  nav.top a:hover{background:var(--red);color:#fff;padding:.2rem .5rem;margin:0 -.5rem}
+
+  /* HERO — type explosion */
+  .hero{padding:7rem 1.5rem 3rem;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;border-bottom:1px solid var(--ink);position:relative}
+  .hero .meta-top{display:grid;grid-template-columns:repeat(6,1fr);gap:1.5rem;padding-bottom:3rem;border-bottom:1px solid var(--ink);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase}
+  .hero .meta-top span{font-family:'JetBrains Mono',monospace}
+  .hero .meta-top b{display:block;font-weight:400;margin-top:.25rem;color:#777;font-size:.68rem}
+  .hero h1{font-size:clamp(4rem,18vw,18rem);line-height:.85;font-weight:500;letter-spacing:-0.05em;margin:4rem 0 0;text-transform:uppercase}
+  .hero h1 .strike{text-decoration:line-through;color:#bbb}
+  .hero h1 .red{color:var(--red)}
+  .hero h1 em{font-style:normal;display:block;font-weight:300}
+  .hero .footer-bar{display:grid;grid-template-columns:repeat(6,1fr);gap:1.5rem;padding-top:3rem;border-top:1px solid var(--ink);align-items:end;font-size:.85rem}
+  .hero .footer-bar .big{font-size:2rem;line-height:1;font-weight:500;letter-spacing:-0.03em}
+  .scroll-blink{display:inline-block;animation:blink 1.2s steps(2) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* ticker */
+  .ticker{background:var(--red);color:#fff;padding:.85rem 0;overflow:hidden;border-top:1px solid #000;border-bottom:1px solid #000;font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;white-space:nowrap}
+  .ticker-track{display:inline-block;animation:tick 28s linear infinite}
+  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .ticker span{padding:0 2rem}
+
+  /* disciplines */
+  .disc{border-bottom:1px solid var(--ink)}
+  .disc-row{display:grid;grid-template-columns:80px 1.5fr 1fr 1fr 80px;border-bottom:1px solid var(--ink);align-items:stretch;min-height:30vh;transition:background .15s}
+  .disc-row:hover{background:#000;color:#fff}
+  .disc-row:hover .num,.disc-row:hover .arr{color:var(--red)}
+  .disc-row > div{padding:2rem 1.25rem;display:flex;align-items:flex-end;border-right:1px solid var(--ink)}
+  .disc-row > div:last-child{border-right:none}
+  .num{font-family:'JetBrains Mono',monospace;font-size:1rem;align-items:flex-start !important}
+  .name{font-size:clamp(2.5rem,7vw,5.5rem);line-height:.9;font-weight:500;letter-spacing:-0.04em;text-transform:uppercase}
+  .desc{font-size:.95rem;line-height:1.5}
+  .meta{font-family:'JetBrains Mono',monospace;font-size:.78rem;text-transform:uppercase;flex-direction:column;align-items:flex-start !important;gap:.3rem;justify-content:flex-end}
+  .arr{font-size:2rem;justify-content:flex-end;align-items:flex-start !important}
+
+  /* maestro */
+  .maestro{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--ink)}
+  .maestro-img{border-right:1px solid var(--ink);background:#000;position:relative;min-height:80vh;overflow:hidden}
+  .maestro-img img{width:100%;height:100%;object-fit:cover;filter:contrast(1.1)}
+  .maestro-img::after{content:"01 LAOSHI";position:absolute;bottom:1.5rem;left:1.5rem;color:#fff;font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;background:#000;padding:.3rem .5rem}
+  .maestro-text{padding:3rem 2rem;display:flex;flex-direction:column;gap:2rem;justify-content:center}
+  .maestro-text h2{font-size:clamp(2.5rem,5vw,4.5rem);line-height:.95;font-weight:500;letter-spacing:-0.03em;text-transform:uppercase;margin:0}
+  .maestro-text p{font-size:1rem;max-width:45ch;line-height:1.6}
+  .pill{display:inline-block;padding:.4rem .8rem;border:1px solid var(--ink);font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;width:fit-content}
+  .pill.red{background:var(--red);color:#fff;border-color:var(--red)}
+
+  /* big stat */
+  .stat{padding:5rem 1.5rem;text-align:center;border-bottom:1px solid var(--ink);background:#000;color:#fff}
+  .stat .num-big{font-size:clamp(8rem,22vw,18rem);line-height:.85;font-weight:500;letter-spacing:-0.05em;color:var(--red)}
+  .stat p{font-family:'JetBrains Mono',monospace;font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;margin-top:1rem}
+
+  /* footer */
+  footer{background:#000;color:#fff;padding:3rem 1.5rem 1.5rem}
+  footer .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:2rem;padding-bottom:3rem;border-bottom:1px solid #333}
+  footer h4{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:#666;margin-bottom:.85rem;font-weight:400}
+  footer a,footer p{font-size:.95rem;line-height:1.5}
+  footer a:hover{color:var(--red)}
+  footer .super{grid-column:span 3;font-size:clamp(4rem,9vw,8rem);line-height:.85;font-weight:500;letter-spacing:-0.04em;text-transform:uppercase}
+  footer .super em{font-style:normal;color:var(--red)}
+  footer .colophon{display:flex;justify-content:space-between;padding-top:1.5rem;font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:#666}
+
+  @media(max-width:880px){
+    body::before{display:none}
+    nav.top{grid-template-columns:1fr auto}
+    nav.top a:nth-of-type(2),nav.top a:nth-of-type(3){display:none}
+    .hero .meta-top,.hero .footer-bar{grid-template-columns:repeat(2,1fr)}
+    .disc-row{grid-template-columns:50px 1fr 50px}
+    .disc-row .desc,.disc-row .meta{display:none}
+    .maestro{grid-template-columns:1fr}
+    .maestro-img{min-height:60vh}
+    footer .grid{grid-template-columns:1fr 1fr}
+    footer .super{grid-column:1/-1;font-size:3rem}
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="brand">WUSHUSANCHAI™</div>
+  <a href="#disc">[01] Disciplinas</a>
+  <a href="#maestro">[02] Maestro</a>
+  <a href="#contacto">[03] Contacto</a>
+</nav>
+
+<section class="hero">
+  <div class="meta-top">
+    <span>Index<b>00 → 03</b></span>
+    <span>Issue<b>v1 / 2026</b></span>
+    <span>Location<b>Barcelona ES</b></span>
+    <span>Since<b>1989</b></span>
+    <span>Status<b style="color:var(--red)">● Live</b></span>
+    <span>Lang<b>ES / EN / 中</b></span>
+  </div>
+  <h1>
+    <span class="strike">Mind.</span><br/>
+    Body. <em>Energy.</em><br/>
+    <span class="red">三</span> Ways.
+  </h1>
+  <div class="footer-bar">
+    <div class="big">↘</div>
+    <div></div>
+    <div></div>
+    <div class="mono">Scroll <span class="scroll-blink">▮</span></div>
+    <div></div>
+    <div class="big" style="text-align:right">2026</div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>● TÁNGLÁNGQUÁN</span><span>● SĀN HUÁNG PÀO CHUÍ</span><span>● TAICHI CHEN</span><span>● TAICHI YANG</span><span>● QIGONG</span><span>● BARCELONA</span><span>● TÁNGLÁNGQUÁN</span><span>● SĀN HUÁNG PÀO CHUÍ</span><span>● TAICHI CHEN</span><span>● TAICHI YANG</span><span>● QIGONG</span><span>● BARCELONA</span>
+  </div>
+</div>
+
+<section class="disc" id="disc">
+  <div class="disc-row">
+    <div class="num">01</div>
+    <div class="name">Kungfu</div>
+    <div class="desc">Tánglángquán + Sān Huáng Pào Chuí. Fuerza, elasticidad, defensa personal.</div>
+    <div class="meta"><span>Estilo<br>marcial</span><span>Nivel<br>todos</span></div>
+    <div class="arr">→</div>
+  </div>
+  <div class="disc-row">
+    <div class="num">02</div>
+    <div class="name">Taichi</div>
+    <div class="desc">Linajes Chen y Yang. Movimiento fluido, salud y conciencia corporal.</div>
+    <div class="meta"><span>Estilo<br>interno</span><span>Nivel<br>todos</span></div>
+    <div class="arr">→</div>
+  </div>
+  <div class="disc-row">
+    <div class="num">03</div>
+    <div class="name">Qigong</div>
+    <div class="desc">Respiración + energía vital. Calma profunda y longevidad.</div>
+    <div class="meta"><span>Estilo<br>energético</span><span>Nivel<br>todos</span></div>
+    <div class="arr">→</div>
+  </div>
+</section>
+
+<section class="maestro" id="maestro">
+  <div class="maestro-img"><img src="/img/maestro.jpg" alt="" /></div>
+  <div class="maestro-text">
+    <div style="display:flex;gap:.5rem"><span class="pill red">Laoshi</span><span class="pill">Linaje original</span></div>
+    <h2>Carlos<br/>García</h2>
+    <p>Una vida dedicada en exclusiva a las artes marciales tradicionales chinas. Décadas formando a estudiantes de todas las edades en el desarrollo de su energía interior, autoconocimiento y capacidad marcial.</p>
+    <p>Transmisor de los linajes Tánglángquán y Sān Huáng Pào Chuí Quan, así como Chen y Yang del taichichuan.</p>
+    <a href="#" class="pill">→ Conocer al maestro</a>
+  </div>
+</section>
+
+<section class="stat">
+  <div class="num-big">37</div>
+  <p>— Años transmitiendo el linaje</p>
+</section>
+
+<footer id="contacto">
+  <div class="grid">
+    <div class="super">Train<br/><em>here.</em></div>
+    <div></div>
+    <div>
+      <h4>Contacto</h4>
+      <p><a href="mailto:centresanchai@gmail.com">centresanchai@gmail.com</a></p>
+      <p>Barcelona, ES</p>
+    </div>
+    <div>
+      <h4>Social</h4>
+      <p><a href="https://www.youtube.com/@WushuKungfutradicional">YouTube</a></p>
+      <p><a href="#">Instagram</a></p>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <p><a href="/aviso-legal">Aviso legal</a></p>
+      <p><a href="/politica-de-privacidad">Privacidad</a></p>
+    </div>
+  </div>
+  <div class="colophon">
+    <span>© 2026 · WUSHUSANCHAI™</span>
+    <span><a href="/">← Sitio actual</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
