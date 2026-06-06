@@ -1,0 +1,3 @@
+# Evita que los prototipos de prueba se indexen (refuerza el <meta robots> de cada página)
+/prototipos/*
+  X-Robots-Tag: noindex, nofollow
