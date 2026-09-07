@@ -12,8 +12,15 @@
 /** Dirección que recibe los mensajes del formulario. */
 const DESTINO = 'centresanchai@gmail.com';
 
-/** Remitente. Debe ser un dominio dado de alta en Cloudflare Email Sending. */
-const REMITENTE = { email: 'formulario@wushusanchai.com', name: 'Web Wushu Sanchai' };
+/**
+ * Remitente. El dominio debe estar dado de alta en Cloudflare Email Sending.
+ * Es una dirección de solo envío: quien reciba el aviso responde al visitante,
+ * porque abajo se fija `replyTo` con su correo.
+ */
+const REMITENTE = {
+  email: 'no-reply@institutowushusanchai.com',
+  name: 'Web Instituto Wushu Sanchai',
+};
 
 /** Límites de tamaño por campo, para que nadie use el endpoint como buzón. */
 const LIMITES = { nombre: 100, telefono: 30, email: 150, mensaje: 5000 };
