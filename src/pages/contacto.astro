@@ -1,12 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const mapsEmbed = 'https://maps.google.com/maps?q=Carrer%20de%20Rocafort%2C%209%2C%20Eixample%2C%2008004%20Barcelona&t=&z=15&ie=UTF8&iwloc=&output=embed';
+import { site, contacto, direccion, horario, diasCerrados } from '../data/site.js';
 ---
 
 <Base
   title="Contacto"
-  description="Contacta con el Instituto Wushu Sanchai. Carrer de Rocafort 9, Eixample, Barcelona. Teléfono 646 019 606. Email centresanchai@gmail.com."
+  seoTitle="Contacto · Instituto Wushu Sanchai · Rocafort 9, Barcelona"
+  description={`Contacta con el ${site.nombre}. ${direccion.calle}, ${direccion.barrio}, Barcelona. Teléfono ${contacto.telefono}. Email ${contacto.email}.`}
 >
   <section class="section page-intro">
     <div class="container container-narrow text-center">
@@ -25,25 +25,24 @@ const mapsEmbed = 'https://maps.google.com/maps?q=Carrer%20de%20Rocafort%2C%209%
       <div class="info-grid">
         <article class="info-card">
           <h3>Encuéntranos en</h3>
-          <p>Carrer de Rocafort, 9, Baixos dreta,<br />Eixample, 08004 Barcelona, España</p>
-          <p><a href="https://www.google.com/maps/dir//Centro+Sanchai,+Carrer+de+Rocafort,+9,+Baixos+dreta,+Eixample,+08004+Barcelona,+Espa%C3%B1a" target="_blank" rel="noopener noreferrer">Cómo llegar →</a></p>
+          <p>{direccion.calle},<br />{direccion.barrio}, {direccion.cp} {direccion.ciudad}, {direccion.pais}</p>
+          <p><a href={direccion.comoLlegarUrl} target="_blank" rel="noopener noreferrer">Cómo llegar →</a></p>
         </article>
 
         <article class="info-card">
           <h3>Horario</h3>
           <ul>
-            <li>Lunes: 18:00h - 20:00h</li>
-            <li>Miércoles: 18:00h - 21:00h</li>
-            <li>Viernes: 10:00h - 14:00h</li>
-            <li class="muted">Martes, jueves, sábado y domingo: cerrado</li>
+            {horario.map((h) => <li>{h.dia}: {h.abre}h - {h.cierra}h</li>)}
+            <li class="muted">{diasCerrados}</li>
           </ul>
         </article>
 
         <article class="info-card">
-          <h3>Llámanos</h3>
-          <p class="big"><a href="tel:+34646019606">646 019 606</a></p>
+          <h3>Llámanos o escríbenos por WhatsApp</h3>
+          <p class="big"><a href={`tel:${contacto.telefonoE164}`}>{contacto.telefono}</a></p>
+          <p><a href={contacto.whatsapp} class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a></p>
           <h3 style="margin-top:1.25rem">Escríbenos</h3>
-          <p class="big"><a href="mailto:centresanchai@gmail.com">centresanchai@gmail.com</a></p>
+          <p class="big"><a href={`mailto:${contacto.email}`}>{contacto.email}</a></p>
         </article>
       </div>
     </div>
@@ -60,7 +59,7 @@ const mapsEmbed = 'https://maps.google.com/maps?q=Carrer%20de%20Rocafort%2C%209%
             responderemos lo antes posible con toda la información que necesites.
           </p>
 
-          <form class="contact-form" action="mailto:centresanchai@gmail.com" method="post" enctype="text/plain">
+          <form class="contact-form" action={`mailto:${contacto.email}`} method="post" enctype="text/plain">
             <label>
               Nombre
               <input type="text" name="nombre" required autocomplete="name" />
@@ -84,13 +83,13 @@ const mapsEmbed = 'https://maps.google.com/maps?q=Carrer%20de%20Rocafort%2C%209%
 
         <div class="map">
           <iframe
-            src={mapsEmbed}
+            src={direccion.embedUrl}
             width="100%"
             height="100%"
             style="border:0; min-height:420px"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title="Mapa del Instituto Wushu Sanchai"
+            title={`Mapa del ${site.nombre}`}
           ></iframe>
         </div>
       </div>
@@ -99,10 +98,6 @@ const mapsEmbed = 'https://maps.google.com/maps?q=Carrer%20de%20Rocafort%2C%209%
 </Base>
 
 <style>
-  .page-intro { padding-top: clamp(3rem, 6vw, 4.5rem); padding-bottom: 1rem; }
-  .text-center { text-align: center; }
-  .lead { font-size: 1.1rem; max-width: 65ch; margin: 0 auto; }
-
   .info-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -126,7 +121,10 @@ const mapsEmbed = 'https://maps.google.com/maps?q=Carrer%20de%20Rocafort%2C%209%
   .info-card .big { font-size: 1.15rem; font-weight: 600; }
   .info-card .big a { color: var(--color-accent); text-decoration: none; }
   .info-card .big a:hover { text-decoration: underline; }
-  .muted { color: var(--color-text-muted); font-size: 0.9rem; }
+  .info-card .muted { font-size: 0.9rem; }
+
+  .btn-whatsapp { background: #25d366; color: #fff; }
+  .btn-whatsapp:hover { background: #1da851; color: #fff; }
 
   .contact-form {
     display: flex;

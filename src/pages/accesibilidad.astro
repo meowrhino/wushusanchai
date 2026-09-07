@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { contacto } from '../data/site.js';
 ---
 
 <Base title="Accesibilidad" description="Declaración de accesibilidad del Instituto Wushu Sanchai conforme al Real Decreto 1112/2018.">
@@ -59,7 +60,7 @@ import Base from '../layouts/Base.astro';
       </ul>
       <p>
         a través del <a href="/contacto">formulario de contacto</a> o a través del teléfono
-        <a href="tel:+34646019606">+34 646 019 606</a>.
+        <a href={`tel:${contacto.telefonoE164}`}>+34 {contacto.telefono}</a>.
       </p>
 
       <h3>Solicitudes de información accesible y quejas</h3>
@@ -90,7 +91,7 @@ import Base from '../layouts/Base.astro';
         1112/2018, la persona interesada podrá iniciar una reclamación. El procedimiento
         recogido en el artículo 13 del RD 1112/2018 puede iniciarse a través del
         <a href="/contacto">formulario de contacto</a> o del teléfono
-        <a href="tel:+34646019606">+34 646 019 606</a>. Las reclamaciones serán recibidas y
+        <a href={`tel:${contacto.telefonoE164}`}>+34 {contacto.telefono}</a>. Las reclamaciones serán recibidas y
         tratadas por CARLOS GARCIA GARCIA.
       </p>
 

@@ -1,36 +1,40 @@
 ---
+import {
+  site,
+  contacto,
+  direccion,
+  direccionLinea,
+  horario,
+  diasCerrados,
+  redes,
+  navPrincipal,
+  navLegal,
+} from '../data/site.js';
+
 const year = new Date().getFullYear();
-const mapsUrl = 'https://www.google.com/maps/place/Centro+Sanchai/@41.375576,2.157898,17z';
-const directionsUrl = 'https://www.google.com/maps/dir//Centro+Sanchai,+Carrer+de+Rocafort,+9,+Baixos+dreta,+Eixample,+08004+Barcelona,+Espa%C3%B1a';
 ---
 
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="col brand-col">
-      <img src="/img/logo.svg" alt="Instituto Wushu Sanchai" width="160" />
+      <img src="/img/logo.svg" alt={site.nombre} width="160" height="160" />
       <p>Escuela de kungfu, taichi y qigong. Mejora tu equilibrio, fuerza y bienestar con entrenamientos adaptados a todos los niveles.</p>
       <p class="follow">Síguenos en:</p>
       <ul class="social">
-        <li><a href="https://www.instagram.com/institutowushusanchai/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-        <li><a href="https://web.facebook.com/institutowushusanchai.espana?locale=es_LA" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-        <li><a href="https://youtube.com/@wushukungfutradicional" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        {redes.map((r) => (
+          <li><a href={r.url} target="_blank" rel="noopener noreferrer">{r.nombre}</a></li>
+        ))}
       </ul>
     </div>
 
     <div class="col">
       <h4>Menú</h4>
       <ul>
-        <li><a href="/">Inicio</a></li>
-        <li><a href="/servicios">Servicios</a></li>
-        <li><a href="/acerca-del-maestro">Acerca del maestro</a></li>
-        <li><a href="/contacto">Contacto</a></li>
+        {navPrincipal.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
       </ul>
       <h4>Legal</h4>
       <ul>
-        <li><a href="/aviso-legal">Aviso legal</a></li>
-        <li><a href="/politica-de-privacidad">Política de privacidad</a></li>
-        <li><a href="/politica-de-cookies">Política de cookies (UE)</a></li>
-        <li><a href="/accesibilidad">Accesibilidad</a></li>
+        {navLegal.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
       </ul>
     </div>
 
@@ -38,22 +42,21 @@ const directionsUrl = 'https://www.google.com/maps/dir//Centro+Sanchai,+Carrer+d
       <h4>Información de contacto</h4>
       <p>
         <strong>Dirección:</strong><br />
-        <a href={mapsUrl} target="_blank" rel="noopener noreferrer">
-          Carrer de Rocafort, 9, Baixos dreta, Eixample, 08004 Barcelona
+        <a href={direccion.mapaUrl} target="_blank" rel="noopener noreferrer">
+          {direccionLinea}
         </a>
       </p>
       <p>
         <strong>Horarios:</strong><br />
-        Lunes 18:00h - 20:00h<br />
-        Miércoles 18:00h - 21:00h<br />
-        Viernes 10:00h - 14:00h<br />
-        <span class="muted">Martes, jueves, sábado y domingo: cerrado</span>
+        {horario.map((h) => <>{`${h.dia} ${h.abre}h - ${h.cierra}h`}<br /></>)}
+        <span class="muted">{diasCerrados}</span>
       </p>
       <p>
-        <strong>Teléfono:</strong> <a href="tel:+34646019606">646 019 606</a><br />
-        <strong>Correo:</strong> <a href="mailto:centresanchai@gmail.com">centresanchai@gmail.com</a>
+        <strong>Teléfono:</strong> <a href={`tel:${contacto.telefonoE164}`}>{contacto.telefono}</a><br />
+        <strong>Correo:</strong> <a href={`mailto:${contacto.email}`}>{contacto.email}</a><br />
+        <strong>WhatsApp:</strong> <a href={contacto.whatsapp} target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp</a>
       </p>
-      <p><a href={directionsUrl} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Cómo llegar</a></p>
+      <p><a href={direccion.comoLlegarUrl} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Cómo llegar</a></p>
     </div>
   </div>
 
@@ -62,7 +65,7 @@ const directionsUrl = 'https://www.google.com/maps/dir//Centro+Sanchai,+Carrer+d
   </div>
 
   <div class="container copy">
-    <p>© {year} Instituto Wushu Sanchai · Carlos García García · CIF 52202446J</p>
+    <p>© {year} {site.nombre} · {site.nombreLegal} · CIF {site.cif}</p>
   </div>
 </footer>
 
@@ -88,7 +91,7 @@ const directionsUrl = 'https://www.google.com/maps/dir//Centro+Sanchai,+Carrer+d
   }
   .site-footer :global(a:hover) { color: #fff; text-decoration: underline; }
   .site-footer :global(p) { margin: 0 0 0.85em; font-size: 0.92rem; line-height: 1.5; }
-  .muted { color: #888; }
+  .site-footer .muted { color: #888; }
 
   .footer-grid {
     display: grid;
@@ -145,12 +148,13 @@ const directionsUrl = 'https://www.google.com/maps/dir//Centro+Sanchai,+Carrer+d
     color: #888;
     font-size: 0.8rem;
   }
-  .btn-ghost {
-    color: #fff !important;
-    border-color: #fff !important;
+  /* El footer es oscuro: el botón fantasma se invierte aquí. */
+  .site-footer :global(.btn-ghost) {
+    color: #fff;
+    border-color: #fff;
   }
-  .btn-ghost:hover {
+  .site-footer :global(.btn-ghost:hover) {
     background: #fff;
-    color: #111 !important;
+    color: #111;
   }
 </style>

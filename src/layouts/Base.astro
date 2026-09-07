@@ -1,17 +1,72 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import {
+  site,
+  contacto,
+  direccion,
+  horario,
+  redes,
+} from '../data/site.js';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  /** Título completo para buscadores y redes, sin el sufijo de la marca. */
+  seoTitle?: string;
 }
 
-const { title, description = 'Instituto Wushu Sanchai - Escuela de kungfu, taichi y qigong en Barcelona dirigida por el maestro Carlos García.', ogImage = '/img/hero.jpg' } = Astro.props;
+const {
+  title,
+  description = site.descripcion,
+  ogImage = '/img/og-default.jpg',
+  seoTitle,
+} = Astro.props;
+
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const fullTitle = title.includes('Instituto') ? title : `${title} | Instituto Wushu Sanchai`;
+const fullTitle = seoTitle ?? (title.includes('Instituto') ? title : `${title} | ${site.nombre}`);
+
+// Ficha de negocio para Google: dirección, teléfono, horarios y ubicación.
+// Alimenta el panel de resultados locales y Google Maps.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsActivityLocation',
+  '@id': `${site.url}/#escuela`,
+  name: site.nombre,
+  description: site.descripcion,
+  url: site.url,
+  telephone: contacto.telefonoE164,
+  email: contacto.email,
+  image: new URL('/img/og-default.jpg', Astro.site).href,
+  logo: new URL('/img/logo.svg', Astro.site).href,
+  priceRange: '€€',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: direccion.calle,
+    addressLocality: direccion.ciudad,
+    postalCode: direccion.cp,
+    addressCountry: direccion.paisISO,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: direccion.lat,
+    longitude: direccion.lon,
+  },
+  hasMap: direccion.mapaUrl,
+  openingHoursSpecification: horario.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: `https://schema.org/${
+      { Mo: 'Monday', Tu: 'Tuesday', We: 'Wednesday', Th: 'Thursday', Fr: 'Friday', Sa: 'Saturday', Su: 'Sunday' }[h.schema]
+    }`,
+    opens: h.abre,
+    closes: h.cierra,
+  })),
+  sameAs: redes.map((r) => r.url),
+  areaServed: { '@type': 'City', name: direccion.ciudad },
+  founder: { '@type': 'Person', name: 'Carlos García García' },
+};
 ---
 
 <!doctype html>
@@ -20,23 +75,38 @@ const fullTitle = title.includes('Instituto') ? title : `${title} | Instituto Wu
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/img/logo.svg" />
+    <meta name="theme-color" content="#e02e21" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.nombre} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.nombre} — kungfu, taichi y qigong en Barcelona`} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="es_ES" />
+
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
   </head>
   <body>
-    <a href="#main" class="sr-only">Saltar al contenido</a>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
     <Header />
     <main id="main"><slot /></main>
     <Footer />

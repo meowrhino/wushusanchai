@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /prototipos/
 
-Sitemap: https://institutowushusanchai.com/sitemap.xml
+Sitemap: https://institutowushusanchai.com/sitemap-index.xml

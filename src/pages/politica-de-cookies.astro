@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { contacto } from '../data/site.js';
 ---
 
 <Base title="Política de cookies (UE)" description="Política de cookies del Instituto Wushu Sanchai, aplicable a usuarios del Espacio Económico Europeo y Suiza.">
@@ -102,15 +103,15 @@ import Base from '../layouts/Base.astro';
       </ul>
       <p>
         Para ejercer estos derechos, contacta con nosotros en
-        <a href="mailto:centresanchai@gmail.com">centresanchai@gmail.com</a>.
+        <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.
       </p>
 
       <h2>9. Datos de contacto</h2>
       <ul>
         <li><strong>CARLOS GARCIA GARCIA</strong></li>
         <li>CALLE LETRA G, MOLINS DE REI, BARCELONA, 08750</li>
-        <li>Email: <a href="mailto:centresanchai@gmail.com">centresanchai@gmail.com</a></li>
-        <li>Teléfono: <a href="tel:+34646019606">646 019 606</a></li>
+        <li>Email: <a href={`mailto:${contacto.email}`}>{contacto.email}</a></li>
+        <li>Teléfono: <a href={`tel:${contacto.telefonoE164}`}>{contacto.telefono}</a></li>
       </ul>
     </div>
   </article>

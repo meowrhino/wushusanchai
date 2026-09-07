@@ -1,19 +1,15 @@
 ---
+import { site, navPrincipal as nav } from '../data/site.js';
+
 const { pathname } = Astro.url;
 const isActive = (href: string) =>
   href === '/' ? pathname === '/' : pathname.startsWith(href);
-const nav = [
-  { href: '/', label: 'Inicio' },
-  { href: '/servicios', label: 'Servicios' },
-  { href: '/acerca-del-maestro', label: 'Acerca del maestro' },
-  { href: '/contacto', label: 'Contacto' },
-];
 ---
 
 <header class="site-header">
   <div class="container header-inner">
-    <a href="/" class="brand" aria-label="Instituto Wushu Sanchai - Inicio">
-      <img src="/img/logo.svg" alt="Instituto Wushu Sanchai" width="170" height="60" />
+    <a href="/" class="brand" aria-label={`${site.nombre} - Inicio`}>
+      <img src="/img/logo.svg" alt={site.nombre} width="170" height="60" />
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Abrir menú">
       <span></span><span></span><span></span>

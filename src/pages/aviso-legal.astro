@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { site, contacto } from '../data/site.js';
 ---
 
 <Base title="Aviso legal" description="Aviso legal del Instituto Wushu Sanchai conforme a la Ley de Servicios de la Sociedad de la Información (LSSI).">
@@ -32,9 +33,9 @@ import Base from '../layouts/Base.astro';
       <ul>
         <li><strong>Denominación social:</strong> CARLOS GARCIA GARCIA</li>
         <li><strong>Nombre comercial:</strong> INSTITUTO WUSHUSANCHAI</li>
-        <li><strong>CIF:</strong> 52202446J</li>
+        <li><strong>CIF:</strong> {site.cif}</li>
         <li><strong>Domicilio:</strong> CALLE LETRA G, MOLINS DE REI, BARCELONA, 08750</li>
-        <li><strong>Email:</strong> <a href="mailto:centresanchai@gmail.com">centresanchai@gmail.com</a></li>
+        <li><strong>Email:</strong> <a href={`mailto:${contacto.email}`}>{contacto.email}</a></li>
       </ul>
 
       <h2>2. Objeto</h2>
