@@ -1,19 +1,9 @@
 name = "wushusanchai"
 compatibility_date = "2025-05-01"
-main = "worker/index.js"
 
 [assets]
 directory = "./dist"
-binding = "ASSETS"
 not_found_handling = "404-page"
-
-# Envío del formulario de contacto.
-# Requiere tener institutowushusanchai.com dado de alta en Email Sending.
-# Ojo al SPF de la zona: hay que AÑADIR el include de Cloudflare al registro
-# que ya existe, no sustituirlo, o se rompe el correo de la escuela.
-[[send_email]]
-name = "EMAIL"
-allowed_destination_addresses = ["centresanchai@gmail.com"]
 
 [[routes]]
 pattern = "wushusanchai.com"

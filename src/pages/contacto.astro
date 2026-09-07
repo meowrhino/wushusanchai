@@ -53,39 +53,34 @@ import { site, contacto, direccion, horario, diasCerrados } from '../data/site.j
       <div class="grid-2">
         <div>
           <p class="eyebrow">Tu primer paso empieza aquí</p>
-          <h2>Déjanos tu mensaje</h2>
+          <h2>Hablemos</h2>
           <p>
-            Queremos conocerte y asesorarte según tus objetivos. Déjanos tus datos y te
-            responderemos lo antes posible con toda la información que necesites.
+            Queremos conocerte y asesorarte según tus objetivos. Escríbenos por
+            WhatsApp o llámanos y te contamos sin compromiso qué clase encaja
+            mejor contigo.
           </p>
 
-          <form class="contact-form" action="/api/contacto" method="post">
-            <label>
-              Nombre
-              <input type="text" name="nombre" required maxlength="100" autocomplete="name" />
-            </label>
-            <label>
-              Teléfono
-              <input type="tel" name="telefono" maxlength="30" autocomplete="tel" />
-            </label>
-            <label>
-              Correo electrónico
-              <input type="email" name="email" required maxlength="150" autocomplete="email" />
-            </label>
-            <label>
-              Mensaje
-              <textarea name="mensaje" rows="5" required maxlength="5000"></textarea>
-            </label>
+          <ul class="vias">
+            <li>
+              <a href={contacto.whatsapp} class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+                Escribir por WhatsApp
+              </a>
+              <span>Lo más rápido. Te respondemos en horario de clases.</span>
+            </li>
+            <li>
+              <a href={`tel:${contacto.telefonoE164}`} class="btn">Llamar al {contacto.telefono}</a>
+              <span>Si prefieres que te lo contemos de viva voz.</span>
+            </li>
+            <li>
+              <a href={`mailto:${contacto.email}`} class="btn btn-ghost">Enviar un correo</a>
+              <span>{contacto.email}</span>
+            </li>
+          </ul>
 
-            {/* Trampa para bots: invisible y sin foco para quien usa la web. */}
-            <div class="trampa" aria-hidden="true">
-              <label>No rellenes este campo<input type="text" name="web" tabindex="-1" autocomplete="off" /></label>
-            </div>
-
-            <button type="submit" class="btn">Enviar</button>
-            <p class="form-estado" role="status" aria-live="polite"></p>
-            <p class="note">Al enviar este formulario aceptas nuestra <a href="/politica-de-privacidad">política de privacidad</a>.</p>
-          </form>
+          <p class="note">
+            También puedes pasarte por la escuela en horario de clases y ver un
+            entrenamiento antes de decidirte.
+          </p>
         </div>
 
         <div class="map">
@@ -130,63 +125,30 @@ import { site, contacto, direccion, horario, diasCerrados } from '../data/site.j
   .info-card .big a:hover { text-decoration: underline; }
   .info-card .muted { font-size: 0.9rem; }
 
+
+  .vias {
+    list-style: none;
+    padding: 0;
+    margin: 1.75rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .vias li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+  .vias span {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
   .btn-whatsapp { background: #25d366; color: #fff; }
   .btn-whatsapp:hover { background: #1da851; color: #fff; }
 
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-  .contact-form label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-heading);
-  }
-  .contact-form input,
-  .contact-form textarea {
-    font: inherit;
-    font-weight: 400;
-    color: var(--color-text);
-    padding: 0.75rem 0.9rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    background: #fff;
-    transition: border-color 0.2s;
-  }
-  .contact-form input:focus,
-  .contact-form textarea:focus {
-    outline: none;
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(224, 46, 33, 0.15);
-  }
-  .contact-form button { align-self: flex-start; }
-  .note { font-size: 0.82rem; color: var(--color-text-muted); margin: 0; }
-
-  /* Fuera de pantalla, no `display:none`: así los bots sí la ven. */
-  .trampa {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-  }
-
-  .form-estado {
-    margin: 0;
-    font-size: 0.92rem;
-    font-weight: 600;
-  }
-  .form-estado:empty { display: none; }
-  .form-estado[data-estado='ok'] { color: #17803d; }
-  .form-estado[data-estado='error'] { color: var(--color-accent); }
-  .form-estado[data-estado='enviando'] { color: var(--color-text-muted); }
-
-  .contact-form[data-enviando] button { opacity: 0.6; pointer-events: none; }
+  .note { font-size: 0.9rem; color: var(--color-text-muted); margin-top: 1.75rem; }
 
   .map {
     background: var(--color-bg-alt);
@@ -195,45 +157,3 @@ import { site, contacto, direccion, horario, diasCerrados } from '../data/site.j
     min-height: 420px;
   }
 </style>
-
-<script>
-  const form = document.querySelector<HTMLFormElement>('.contact-form');
-  const estado = document.querySelector<HTMLParagraphElement>('.form-estado');
-
-  const mostrar = (texto: string, tipo: string) => {
-    if (!estado) return;
-    estado.textContent = texto;
-    estado.dataset.estado = tipo;
-  };
-
-  // Vuelta desde un envío sin JavaScript (el Worker redirige con ?enviado).
-  const params = new URLSearchParams(location.search);
-  if (params.has('enviado')) mostrar('¡Mensaje enviado! Te responderemos lo antes posible.', 'ok');
-  if (params.has('error')) mostrar('No hemos podido enviar el mensaje. Inténtalo de nuevo o escríbenos por WhatsApp.', 'error');
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    form.dataset.enviando = '';
-    mostrar('Enviando…', 'enviando');
-
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { accept: 'application/json' },
-      });
-      const data = await res.json();
-
-      if (data.ok) {
-        form.reset();
-        mostrar('¡Mensaje enviado! Te responderemos lo antes posible.', 'ok');
-      } else {
-        mostrar(data.error ?? 'No hemos podido enviar el mensaje.', 'error');
-      }
-    } catch {
-      mostrar('No hemos podido conectar. Revisa tu conexión o escríbenos por WhatsApp.', 'error');
-    } finally {
-      delete form.dataset.enviando;
-    }
-  });
-</script>
