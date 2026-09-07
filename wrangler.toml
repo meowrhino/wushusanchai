@@ -12,3 +12,11 @@ custom_domain = true
 [[routes]]
 pattern = "www.wushusanchai.com"
 custom_domain = true
+
+[[routes]]
+pattern = "institutowushusanchai.com"
+custom_domain = true
+
+[[routes]]
+pattern = "www.institutowushusanchai.com"
+custom_domain = true
