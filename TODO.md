@@ -30,9 +30,6 @@ puede que un formulario no aporte nada.
 
 ## Mejoras pendientes
 
-- **Imágenes sin optimizar.** ~2 MB en la home. No hay WebP/AVIF ni se usa
-  `<Image>` de `astro:assets`. `kit-digital.svg` pesa 572 KB (lleva un bitmap
-  embebido) y sale en todas las páginas.
 - **Testimonios inventados** en la home ("Carlos M.", "Lucía R."). Sustituir por
   reseñas reales de Google: dan credibilidad y pueden alimentar el JSON-LD.
 - **Redirecciones 301.** Los cuatro dominios devuelven 200. El `canonical` evita

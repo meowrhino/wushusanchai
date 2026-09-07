@@ -1,20 +1,26 @@
 ---
+import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import CallToAction from '../components/CallToAction.astro';
+import hero from '../assets/hero.jpg';
+import maestro from '../assets/maestro.jpg';
+import kungfu from '../assets/kungfu.jpg';
+import taichi from '../assets/taichi.jpg';
+import qigong from '../assets/qigong.jpg';
 
 const disciplines = [
   {
-    img: '/img/kungfu.jpg', w: 1257, h: 1700,
+    img: kungfu,
     title: 'Kungfu',
     text: 'Fuerza, elasticidad, resistencia, reflejos… Mucho más que un simple ejercicio. Aprende técnicas milenarias de aplicaciones de defensa personal mientras ganas seguridad y autocontrol.',
   },
   {
-    img: '/img/taichi.jpg', w: 600, h: 800,
+    img: taichi,
     title: 'Taichichuan',
     text: 'Movimientos fluidos nacidos como arte marcial que han resultado ser muy efectivos para reducir el estrés, potenciar el sistema inmunitario y desarrollar un cuerpo fuerte y flexible.',
   },
   {
-    img: '/img/qigong.jpg', w: 1280, h: 1280,
+    img: qigong,
     title: 'Qigong',
     text: 'Ejercicios controlados por tu respiración y consciencia que aumentan tu energía vital y eliminan bloqueos. Practicarlos te aporta más salud, equilibrio interior y longevidad.',
   },
@@ -50,7 +56,15 @@ const testimonios = [
         </div>
       </div>
       <div class="media">
-        <img src="/img/hero.jpg" alt="Práctica de kung fu tradicional" width="1706" height="1280" loading="eager" fetchpriority="high" />
+        <Picture
+          src={hero}
+          formats={['avif', 'webp']}
+          widths={[600, 900, 1200]}
+          sizes="(min-width: 800px) 45vw, 100vw"
+          alt="Práctica de kung fu tradicional"
+          loading="eager"
+          fetchpriority="high"
+        />
       </div>
     </div>
   </section>
@@ -68,7 +82,14 @@ const testimonios = [
         </p>
         <p><a href="/acerca-del-maestro" class="btn btn-ghost">Conocer al maestro</a></p>
       </div>
-      <div class="media"><img src="/img/maestro.jpg" alt="Maestro Carlos García" width="2560" height="1920" loading="lazy" /></div>
+      <div class="media"><Picture
+        src={maestro}
+        formats={['avif', 'webp']}
+        widths={[600, 900, 1200]}
+        sizes="(min-width: 800px) 45vw, 100vw"
+        alt="Maestro Carlos García"
+        loading="lazy"
+      /></div>
     </div>
   </section>
 
@@ -87,7 +108,14 @@ const testimonios = [
       <div class="grid-3 cards">
         {disciplines.map((d) => (
           <article class="card">
-            <div class="card-media"><img src={d.img} alt={d.title} width={d.w} height={d.h} loading="lazy" /></div>
+            <div class="card-media"><Picture
+              src={d.img}
+              formats={['avif', 'webp']}
+              widths={[400, 600, 800]}
+              sizes="(min-width: 700px) 33vw, 100vw"
+              alt={d.title}
+              loading="lazy"
+            /></div>
             <h3>{d.title}</h3>
             <p>{d.text}</p>
           </article>

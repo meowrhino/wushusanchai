@@ -1,6 +1,8 @@
 ---
+import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import CallToAction from '../components/CallToAction.astro';
+import maestro from '../assets/maestro.jpg';
 ---
 
 <Base
@@ -22,7 +24,15 @@ import CallToAction from '../components/CallToAction.astro';
           Acupuntor y autor de libros especializados.
         </p>
       </div>
-      <div class="media"><img src="/img/maestro.jpg" alt="Maestro Carlos García" width="2560" height="1920" loading="eager" fetchpriority="high" /></div>
+      <div class="media"><Picture
+        src={maestro}
+        formats={['avif', 'webp']}
+        widths={[600, 900, 1200]}
+        sizes="(min-width: 800px) 45vw, 100vw"
+        alt="Maestro Carlos García"
+        loading="eager"
+        fetchpriority="high"
+      /></div>
     </div>
   </section>
 

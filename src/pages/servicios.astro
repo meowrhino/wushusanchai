@@ -1,11 +1,15 @@
 ---
+import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import CallToAction from '../components/CallToAction.astro';
 import { contacto } from '../data/site.js';
+import kungfu from '../assets/kungfu.jpg';
+import taichi from '../assets/taichi.jpg';
+import qigong from '../assets/qigong.jpg';
 
 const services = [
   {
-    img: '/img/kungfu.jpg', w: 1257, h: 1700,
+    img: kungfu,
     title: 'Kungfu',
     body: `Uno de los ejercicios más completos. Desarrolla tu fuerza, resistencia, elasticidad y agilidad mediante técnicas ancestrales de ataque y defensa. Mejora tu condición física mientras adquieres habilidades de combate.
 
@@ -13,7 +17,7 @@ En nuestra escuela tienes dos estilos milenarios diferentes para que puedas trab
     ctaLabel: 'Pregúntanos sobre nuestras clases de kungfu',
   },
   {
-    img: '/img/taichi.jpg', w: 600, h: 800,
+    img: taichi,
     title: 'Taichichuan',
     body: `Series de movimientos fluidos y armónicos guiados por la respiración consciente que, si bien tienen una finalidad marcial, aportan grandes beneficios al organismo: reducen el estrés, calman la mente, fortalecen la salud y mejoran la coordinación, la memoria, el equilibrio, la resistencia y la conciencia corporal.
 
@@ -21,7 +25,7 @@ Nuestra escuela conserva el legado de los dos linajes principales de taichichuan
     ctaLabel: 'Pregúntanos sobre nuestras clases de taichi',
   },
   {
-    img: '/img/qigong.jpg', w: 1280, h: 1280,
+    img: qigong,
     title: 'Qigong',
     body: `Ejercicios que sincronizan pensamiento, movimiento y respiración para evitar tensiones y bloqueos en el cuerpo y facilitar la circulación fluida de la energía vital. Es una práctica ideal para mejorar la concentración, trabajar la relajación profunda y potenciar la salud y la longevidad.
 
@@ -52,7 +56,14 @@ En nuestra escuela podrás practicar sistemas de qigong que, desarrollados muy s
   {services.map((s, i) => (
     <section class={`section ${i % 2 === 1 ? 'section-alt' : ''}`}>
       <div class={`container grid-2 ${i % 2 === 1 ? 'reverse' : ''}`}>
-        <div class="media"><img src={s.img} alt={s.title} width={s.w} height={s.h} loading="lazy" /></div>
+        <div class="media"><Picture
+          src={s.img}
+          formats={['avif', 'webp']}
+          widths={[600, 900]}
+          sizes="(min-width: 800px) 45vw, 100vw"
+          alt={s.title}
+          loading="lazy"
+        /></div>
         <div>
           <h2>{s.title}</h2>
           {s.body.split('\n\n').map((p) => <p>{p}</p>)}
