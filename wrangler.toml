@@ -1,9 +1,18 @@
 name = "wushusanchai"
 compatibility_date = "2025-05-01"
+main = "worker/index.js"
 
 [assets]
 directory = "./dist"
+binding = "ASSETS"
 not_found_handling = "404-page"
+
+# Envío del formulario de contacto.
+# Requiere tener wushusanchai.com dado de alta en Email Sending:
+#   npx wrangler email sending enable wushusanchai.com
+[[send_email]]
+name = "EMAIL"
+allowed_destination_addresses = ["centresanchai@gmail.com"]
 
 [[routes]]
 pattern = "wushusanchai.com"

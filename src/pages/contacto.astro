@@ -59,24 +59,31 @@ import { site, contacto, direccion, horario, diasCerrados } from '../data/site.j
             responderemos lo antes posible con toda la información que necesites.
           </p>
 
-          <form class="contact-form" action={`mailto:${contacto.email}`} method="post" enctype="text/plain">
+          <form class="contact-form" action="/api/contacto" method="post">
             <label>
               Nombre
-              <input type="text" name="nombre" required autocomplete="name" />
+              <input type="text" name="nombre" required maxlength="100" autocomplete="name" />
             </label>
             <label>
               Teléfono
-              <input type="tel" name="telefono" autocomplete="tel" />
+              <input type="tel" name="telefono" maxlength="30" autocomplete="tel" />
             </label>
             <label>
               Correo electrónico
-              <input type="email" name="email" required autocomplete="email" />
+              <input type="email" name="email" required maxlength="150" autocomplete="email" />
             </label>
             <label>
               Mensaje
-              <textarea name="mensaje" rows="5" required></textarea>
+              <textarea name="mensaje" rows="5" required maxlength="5000"></textarea>
             </label>
+
+            {/* Trampa para bots: invisible y sin foco para quien usa la web. */}
+            <div class="trampa" aria-hidden="true">
+              <label>No rellenes este campo<input type="text" name="web" tabindex="-1" autocomplete="off" /></label>
+            </div>
+
             <button type="submit" class="btn">Enviar</button>
+            <p class="form-estado" role="status" aria-live="polite"></p>
             <p class="note">Al enviar este formulario aceptas nuestra <a href="/politica-de-privacidad">política de privacidad</a>.</p>
           </form>
         </div>
@@ -160,6 +167,27 @@ import { site, contacto, direccion, horario, diasCerrados } from '../data/site.j
   .contact-form button { align-self: flex-start; }
   .note { font-size: 0.82rem; color: var(--color-text-muted); margin: 0; }
 
+  /* Fuera de pantalla, no `display:none`: así los bots sí la ven. */
+  .trampa {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-estado {
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .form-estado:empty { display: none; }
+  .form-estado[data-estado='ok'] { color: #17803d; }
+  .form-estado[data-estado='error'] { color: var(--color-accent); }
+  .form-estado[data-estado='enviando'] { color: var(--color-text-muted); }
+
+  .contact-form[data-enviando] button { opacity: 0.6; pointer-events: none; }
+
   .map {
     background: var(--color-bg-alt);
     border-radius: var(--radius);
@@ -167,3 +195,45 @@ import { site, contacto, direccion, horario, diasCerrados } from '../data/site.j
     min-height: 420px;
   }
 </style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.contact-form');
+  const estado = document.querySelector<HTMLParagraphElement>('.form-estado');
+
+  const mostrar = (texto: string, tipo: string) => {
+    if (!estado) return;
+    estado.textContent = texto;
+    estado.dataset.estado = tipo;
+  };
+
+  // Vuelta desde un envío sin JavaScript (el Worker redirige con ?enviado).
+  const params = new URLSearchParams(location.search);
+  if (params.has('enviado')) mostrar('¡Mensaje enviado! Te responderemos lo antes posible.', 'ok');
+  if (params.has('error')) mostrar('No hemos podido enviar el mensaje. Inténtalo de nuevo o escríbenos por WhatsApp.', 'error');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    form.dataset.enviando = '';
+    mostrar('Enviando…', 'enviando');
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { accept: 'application/json' },
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        form.reset();
+        mostrar('¡Mensaje enviado! Te responderemos lo antes posible.', 'ok');
+      } else {
+        mostrar(data.error ?? 'No hemos podido enviar el mensaje.', 'error');
+      }
+    } catch {
+      mostrar('No hemos podido conectar. Revisa tu conexión o escríbenos por WhatsApp.', 'error');
+    } finally {
+      delete form.dataset.enviando;
+    }
+  });
+</script>
