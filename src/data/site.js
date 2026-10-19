@@ -46,6 +46,7 @@ export const direccionLinea = `${direccion.calle}, ${direccion.barrio}, ${direcc
  */
 export const horario = [
   { dia: 'Lunes', schema: 'Mo', abre: '18:00', cierra: '20:00' },
+  { dia: 'Miércoles', schema: 'We', abre: '10:00', cierra: '14:00' },
   { dia: 'Miércoles', schema: 'We', abre: '18:00', cierra: '21:00' },
   { dia: 'Viernes', schema: 'Fr', abre: '10:00', cierra: '14:00' },
 ];
